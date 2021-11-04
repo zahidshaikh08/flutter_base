@@ -9,7 +9,8 @@ class NoDataFound extends StatelessWidget {
   final double fontSize;
   final VoidCallback? onRetry;
 
-  const NoDataFound({Key? key, this.msg, this.fontSize = 17.0, this.onRetry}) : super(key: key);
+  const NoDataFound({Key? key, this.msg, this.fontSize = 17.0, this.onRetry})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

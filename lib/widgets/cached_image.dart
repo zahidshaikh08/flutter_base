@@ -12,7 +12,8 @@ class CachedImage extends StatelessWidget {
   final String? placeholder;
   final bool isViewProfile;
 
-  final String noImageAvailable = "https://www.esm.rochester.edu/uploads/NoPhotoAvailable.jpg";
+  final String noImageAvailable =
+      "https://www.esm.rochester.edu/uploads/NoPhotoAvailable.jpg";
 
   const CachedImage(
     this.imageUrl, {
@@ -31,7 +32,7 @@ class CachedImage extends StatelessWidget {
     try {
       var decoration = BoxDecoration(
         shape: isRound ? BoxShape.circle : BoxShape.rectangle,
-        color: Theme.of(context).colorScheme.secondary,
+        color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
       );
 
       if (placeholder != null && placeholder!.isNotEmpty) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/base/globals.dart';
 
+import '../flutter_base.dart';
 import 'text_widget.dart';
 
 const button35 = 36.0;
@@ -9,7 +9,7 @@ const button50 = 50.0;
 
 class FilledButton extends StatelessWidget {
   final GestureTapCallback? onTap;
-  final String? text;
+  final String text;
   final Color? textColor;
   final Color? color;
 
@@ -28,8 +28,11 @@ class FilledButton extends StatelessWidget {
   final double? borderWidth;
   final bool? isDisabled;
   final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
   final InteractiveInkFeatureFactory? splashFactory;
   final Gradient? gradient;
+  final bool applyGradient;
+  final OutlinedBorder? shape;
 
   const FilledButton({
     Key? key,
@@ -49,9 +52,12 @@ class FilledButton extends StatelessWidget {
     this.fontSize = 16.0,
     this.isDisabled = false,
     this.padding,
+    this.margin,
     this.borderWidth = 0.0,
     this.splashFactory,
+    this.applyGradient = true,
     this.gradient,
+    this.shape,
   }) : super(key: key);
 
   @override
@@ -60,9 +66,10 @@ class FilledButton extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         color: color,
-        gradient: gradient,
+        gradient: applyGradient ? gradient : null,
         borderRadius: BorderRadius.circular(borderRadius!),
       ),
+      margin: margin,
       child: ElevatedButton(
         onPressed: onTap,
         autofocus: false,
@@ -75,10 +82,7 @@ class FilledButton extends StatelessWidget {
           alignment: Alignment.center,
           splashFactory: splashFactory,
           fixedSize: Size(width ?? screenWidth, height!),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius!),
-            // side: BorderSide(color: Palette.accentLight3, width: borderWidth!),
-          ),
+          shape: shape,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +90,7 @@ class FilledButton extends StatelessWidget {
             leading ?? const SizedBox(),
             Expanded(
               child: Texts(
-                text!,
+                text,
                 color: textColor,
                 fontSize: fontSize!,
                 letterSpacing: 1,
@@ -105,7 +109,7 @@ class FilledButton extends StatelessWidget {
 
 class BorderButton extends StatelessWidget {
   final GestureTapCallback? onTap;
-  final String? text;
+  final String text;
   final Color? textColor;
   final Color? color;
   final double? borderRadius;
@@ -121,6 +125,7 @@ class BorderButton extends StatelessWidget {
   final double? borderWidth;
   final bool? isDisabled;
   final EdgeInsetsGeometry? padding;
+  final OutlinedBorder? shape;
 
   const BorderButton({
     Key? key,
@@ -141,6 +146,7 @@ class BorderButton extends StatelessWidget {
     this.padding,
     this.borderWidth = 1.0,
     this.isDisabled,
+    this.shape,
   }) : super(key: key);
 
   @override
@@ -154,10 +160,7 @@ class BorderButton extends StatelessWidget {
         elevation: elevation,
         alignment: Alignment.center,
         fixedSize: Size(width ?? screenWidth, height!),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius!),
-          side: BorderSide(color: borderSideColor ?? color ?? Colors.transparent, width: borderWidth!),
-        ),
+        shape: shape,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -165,7 +168,7 @@ class BorderButton extends StatelessWidget {
           leading ?? const SizedBox(),
           Expanded(
             child: Texts(
-              text!,
+              text,
               color: textColor,
               fontSize: fontSize!,
               letterSpacing: 1,
@@ -183,7 +186,7 @@ class BorderButton extends StatelessWidget {
 
 class EmptyButton extends StatelessWidget {
   final GestureTapCallback onTap;
-  final String? text;
+  final String text;
   final Color? textColor;
   final Color? color;
   final Widget? leading;
@@ -196,6 +199,7 @@ class EmptyButton extends StatelessWidget {
   final double? borderRadius;
   final Color? borderSideColor;
   final EdgeInsetsGeometry? padding;
+  final OutlinedBorder? shape;
 
   const EmptyButton({
     Key? key,
@@ -213,6 +217,7 @@ class EmptyButton extends StatelessWidget {
     this.height = button45,
     this.fontSize = 16.0,
     this.padding,
+    this.shape,
   }) : super(key: key);
 
   @override
@@ -225,13 +230,10 @@ class EmptyButton extends StatelessWidget {
         fixedSize: Size(width ?? screenWidth, height!),
         alignment: Alignment.center,
         padding: padding,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius!),
-          side: BorderSide(color: borderSideColor ?? color ?? Colors.transparent),
-        ),
+        shape: shape,
       ),
       child: Texts(
-        text!,
+        text,
         color: textColor,
         fontSize: fontSize!,
         letterSpacing: 1,

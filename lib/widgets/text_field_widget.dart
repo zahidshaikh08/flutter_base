@@ -100,7 +100,8 @@ class TextFormFieldWidget extends StatefulWidget {
     this.inputFormatters,
     this.maxLength,
     this.showCounter,
-    this.contentPadding = const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+    this.contentPadding =
+        const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
     this.textAlign,
     this.textCapitalization = TextCapitalization.none,
     this.style,
@@ -141,13 +142,16 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
             visible: widget.label != null,
             child: Column(
               children: [
-                Label(widget.label, fontSize: 13.0, isRequired: widget.isRequired!),
-                const SizedBox(height: 8),
+                Label(widget.label,
+                    fontSize: 13.0, isRequired: widget.isRequired!),
+                const SizedBox(height: 6.0),
               ],
             ),
           ),
           TextFormField(
             key: widget.key,
+            showCursor: true,
+            cursorColor: Theme.of(context).primaryColor,
             obscureText: widget.isObscure!,
             keyboardType: widget.textInputType,
             textInputAction: widget.actionKeyboard,
@@ -171,7 +175,9 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
             maxLines: widget.maxLines,
             keyboardAppearance: Theme.of(context).brightness,
             textAlign: widget.textAlign ?? TextAlign.start,
-            buildCounter: (context, {int? currentLength, int? maxLength, bool? isFocused}) => null,
+            buildCounter: (context,
+                    {int? currentLength, int? maxLength, bool? isFocused}) =>
+                null,
             decoration: InputDecoration(
               suffixIcon: widget.suffixIcon,
               prefixIcon: widget.prefixIcon,
@@ -179,16 +185,21 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
               fillColor: widget.filled! ? widget.filledColor : null,
               hintText: widget.hintText,
               hintTextDirection: widget.hintTextDirection,
-              hintStyle: widget.hintStyle ?? Texts.customTextStyle(color: Colors.grey, fontSize: 12.0),
-              border: widget.hasDecoration! ? widget.border ?? roundedBorder : InputBorder.none,
+              hintStyle: widget.hintStyle ??
+                  Texts.customTextStyle(color: Colors.grey, fontSize: 12.0),
+              border: widget.hasDecoration!
+                  ? widget.border ?? roundedBorder
+                  : InputBorder.none,
               errorBorder: widget.hasDecoration!
                   ? widget.errorBorder ??
-                      roundedBorder.copyWith(borderSide: const BorderSide(color: Colors.red))
+                      roundedBorder.copyWith(
+                          borderSide: const BorderSide(color: Colors.red))
                   : InputBorder.none,
               focusedBorder: widget.hasDecoration!
                   ? widget.focusedBorder ??
                       roundedBorder.copyWith(
-                        borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary),
                       )
                   : InputBorder.none,
               focusedErrorBorder: widget.hasDecoration!
@@ -197,11 +208,14 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
                         borderSide: const BorderSide(color: Colors.red),
                       )
                   : InputBorder.none,
-              enabledBorder: widget.hasDecoration! ? widget.enabledBorder ?? roundedBorder : InputBorder.none,
+              enabledBorder: widget.hasDecoration!
+                  ? widget.enabledBorder ?? roundedBorder
+                  : InputBorder.none,
               disabledBorder: widget.hasDecoration!
                   ? widget.disabledBorder ??
                       roundedBorder.copyWith(
-                        borderSide: BorderSide(color: Theme.of(context).backgroundColor),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).backgroundColor),
                       )
                   : InputBorder.none,
               contentPadding: widget.contentPadding,
@@ -210,8 +224,8 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
               errorMaxLines: 2,
               errorStyle: Texts.customTextStyle(
                 color: Colors.red,
-                letterSpacing: 1.0,
                 fontSize: 12.0,
+                letterSpacing: 1.2,
               ),
             ),
             controller: widget.controller,
@@ -312,6 +326,7 @@ class Label extends StatelessWidget {
             color: color ?? Colors.black,
             fontSize: fontSize!,
             fontFamily: fontFamily,
+            fontWeight: FontWeight.bold,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -321,7 +336,8 @@ class Label extends StatelessWidget {
   }
 }
 
-void changeFocus(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+void changeFocus(
+    BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
   currentFocus.unfocus();
   FocusScope.of(context).requestFocus(nextFocus);
 }
@@ -338,7 +354,8 @@ class EnsureVisible extends StatefulWidget {
   _EnsureVisibleState createState() => _EnsureVisibleState();
 }
 
-class _EnsureVisibleState extends State<EnsureVisible> with WidgetsBindingObserver {
+class _EnsureVisibleState extends State<EnsureVisible>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
@@ -364,7 +381,8 @@ class _EnsureVisibleState extends State<EnsureVisible> with WidgetsBindingObserv
   void autoScroll() async {
     var focussedNode = WidgetsBinding.instance!.focusManager.primaryFocus;
     if (focussedNode != null) {
-      var v = focussedNode.context?.findAncestorWidgetOfExactType<EnsureVisible>();
+      var v =
+          focussedNode.context?.findAncestorWidgetOfExactType<EnsureVisible>();
       if (v == widget) {
         // Flutter ALSO tries to adjust the focus / scroll
         await Future.delayed(const Duration(

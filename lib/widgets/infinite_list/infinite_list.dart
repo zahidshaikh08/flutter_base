@@ -91,7 +91,8 @@ class InfiniteListBuilder<T> {
 
   /// [WidgetBuilder] which is invoked when the [InfiniteList]
   /// is rendered and the [ItemLoader] has returned an empty list.
-  WidgetBuilder get empty => _empty ?? (_) => const SizedBox(key: Key('__default_empty__'));
+  WidgetBuilder get empty =>
+      _empty ?? (_) => const SizedBox(key: Key('__default_empty__'));
 }
 
 /// {@template infinite_list}
@@ -120,7 +121,8 @@ class InfiniteList<T> extends StatefulWidget {
   })  : _bottomLoader = bottomLoader,
         _errorLoader = errorLoader,
         _scrollController = scrollController,
-        _scrollOffsetThreshold = scrollOffsetThreshold ?? _kScrollOffsetThreshold,
+        _scrollOffsetThreshold =
+            scrollOffsetThreshold ?? _kScrollOffsetThreshold,
         super(key: key);
 
   /// The amount of space by which to inset the children of the [builder].
@@ -245,7 +247,9 @@ class _InfiniteListState<T> extends State<InfiniteList<T>> {
     return ValueListenableBuilder(
       valueListenable: _controller,
       builder: (context, _ListState<T> state, child) {
-        final itemCount = state.hasReachedMax == false ? state.items.length + 1 : state.items.length;
+        final itemCount = state.hasReachedMax == false
+            ? state.items.length + 1
+            : state.items.length;
 
         if (state.status == _ListStatus.loading) {
           return widget.builder.loading(context);

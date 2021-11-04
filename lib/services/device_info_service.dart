@@ -13,21 +13,21 @@ class DeviceInfoService {
       if (Platform.isAndroid) {
         androidInfo = await deviceInfoPlugin.androidInfo;
         isEmulator = !androidInfo.isPhysicalDevice!;
-        sharedPref.setString(Keys.deviceType, "android");
-        sharedPref.setString(Keys.deviceOS, (androidInfo.version.baseOS)!);
+        sharedPref.setString(BaseKeys.deviceType, "android");
+        sharedPref.setString(BaseKeys.deviceOS, (androidInfo.version.baseOS)!);
         return;
       }
 
       if (Platform.isIOS) {
         iOSDeviceInfo = await deviceInfoPlugin.iosInfo;
         isEmulator = !iOSDeviceInfo.isPhysicalDevice;
-        sharedPref.setString(Keys.deviceType, "apple");
-        sharedPref.setString(Keys.deviceOS, (iOSDeviceInfo.systemVersion)!);
+        sharedPref.setString(BaseKeys.deviceType, "apple");
+        sharedPref.setString(BaseKeys.deviceOS, (iOSDeviceInfo.systemVersion)!);
         return;
       }
     } catch (e, stackTrace) {
-      showLog("deviceInfoInit exception =====>>> $e");
-      showLog("deviceInfoInit exception stackTrace =====>>> $stackTrace");
+      showLog("DeviceInfoService.init() exception =====>>> $e");
+      showLog("DeviceInfoService.init() stackTrace =====>>> $stackTrace");
     }
   }
 }

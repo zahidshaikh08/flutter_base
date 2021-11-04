@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/base/extentions.dart';
+import 'package:flutter_base/base/extentions/common_extentions.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SvgImage extends StatelessWidget {

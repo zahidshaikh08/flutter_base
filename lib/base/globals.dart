@@ -11,8 +11,6 @@ import 'package:flutter_base/widgets/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'app.dart';
-
 void unawaited(Future<void> future) {}
 
 // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
@@ -24,6 +22,7 @@ final snackBarService = StackedServicesModuleImpl.snackbarService;
 final bottomSheetService = StackedServicesModuleImpl.bottomSheetService;
 final navigationService = StackedServicesModuleImpl.navigationService;
 
+const noInternet = "No internet connected!";
 const somethingWentWrongM = "Something went wrong, please try again later!";
 const somethingWentWrongN =
     'Oop\'s sorry something went wrong from our side, we are working on fixing the problem. Please try again.';
@@ -61,14 +60,15 @@ void somethingWentWrongBar() {
 }
 
 void noInternetBar() {
-  showSnackbar(Strings.noInternet);
+  showSnackbar();
 }
 
 void showLog(String msg) {
   debugPrintThrottled(msg, wrapWidth: 220);
 }
 
-void showBotToastNotification(String? message, {Alignment? alignment, Duration? duration}) {
+void showBotToastNotification(String? message,
+    {Alignment? alignment, Duration? duration}) {
   BotToast.showSimpleNotification(
     title: message ?? somethingWentWrongM,
     align: alignment,
@@ -76,7 +76,8 @@ void showBotToastNotification(String? message, {Alignment? alignment, Duration? 
   );
 }
 
-void showCustomBotToastNotification(String title, String? message, {VoidCallback? onTap}) {
+void showCustomBotToastNotification(String title, String? message,
+    {VoidCallback? onTap}) {
   BotToast.showCustomNotification(
     toastBuilder: (function) {
       return Card(
@@ -105,8 +106,10 @@ void showCustomBotToastNotification(String title, String? message, {VoidCallback
   );
 }
 
-Future<void> showSnackbar([String? msg, BuildContext? context, Color? color]) async {
-  ScaffoldMessenger.of(context ?? StackedService.navigatorKey!.currentContext!).showSnackBar(
+Future<void> showSnackbar(
+    [String? msg, BuildContext? context, Color? color]) async {
+  ScaffoldMessenger.of(context ?? StackedService.navigatorKey!.currentContext!)
+      .showSnackBar(
     SnackBar(
       backgroundColor: color,
       content: Texts(msg ?? somethingWentWrongM, color: Colors.white),
@@ -141,3 +144,33 @@ void hideLoader() {
 const unsplash = "https://images.unsplash.com/photo-"
     "1512621776951-a57141f2eefd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8f"
     "GVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80";
+
+/// enum Routes { login }
+///
+/// extension RoutesExt on Routes {
+///   String get value => toString().split(".")[1];
+/// }
+///
+/// class AppRouter {
+///   AppRouter._();
+///
+///   static AppRouter get instance => AppRouter._();
+///
+///   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+///     Widget screen = const SizedBox();
+///
+///     if (settings.name != null) {
+///       switch (EnumToString.fromString(Routes.values, settings.name!)) {
+///         case Routes.login:
+///         /// TODO: Handle this case.
+///           break;
+///         default:
+///       }
+///     }
+///
+///     return MaterialPageRoute(
+///       settings: settings,
+///       builder: (context) => screen,
+///     );
+///   }
+/// }

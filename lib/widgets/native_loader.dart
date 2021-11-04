@@ -6,13 +6,11 @@ import 'package:flutter/material.dart';
 enum LoaderPlatform { android, ios }
 
 class NativeLoader extends StatelessWidget {
-  final double? scale;
   final Color? valueColor;
   final LoaderPlatform? platform;
 
   const NativeLoader({
     Key? key,
-    this.scale = 1.0,
     this.valueColor,
     this.platform,
   }) : super(key: key);
@@ -20,14 +18,12 @@ class NativeLoader extends StatelessWidget {
   const NativeLoader.android({
     Key? key,
     this.valueColor,
-    this.scale = 1.0,
   })  : platform = LoaderPlatform.android,
         super(key: key);
 
   const NativeLoader.ios({
     Key? key,
     this.valueColor,
-    this.scale = 1.0,
   })  : platform = LoaderPlatform.ios,
         super(key: key);
 
@@ -40,23 +36,20 @@ class NativeLoader extends StatelessWidget {
       isAndroid = platform == LoaderPlatform.android;
     }
 
-    return Transform.scale(
-      scale: scale!,
-      child: Center(
-        child: isAndroid ? const CircularProgressIndicator() : const CupertinoActivityIndicator(),
-      ),
+    return Center(
+      child: isAndroid
+          ? CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                  valueColor ?? Theme.of(context).primaryColor),
+            )
+          : const CupertinoActivityIndicator(),
     );
   }
 }
 
-class APILoader extends StatefulWidget {
+class APILoader extends StatelessWidget {
   const APILoader({Key? key}) : super(key: key);
 
-  @override
-  _APILoaderState createState() => _APILoaderState();
-}
-
-class _APILoaderState extends State<APILoader> {
   @override
   Widget build(BuildContext context) {
     return const NativeLoader.android();

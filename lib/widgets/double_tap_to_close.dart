@@ -52,7 +52,8 @@ class _DoubleBackToCloseAppState extends State<DoubleBackToCloseApp> {
   bool get _isSnackBarVisible {
     final lastTimeBackButtonWasTapped = _lastTimeBackButtonWasTapped;
     return (lastTimeBackButtonWasTapped != null) &&
-        (widget.snackBar.duration > DateTime.now().difference(lastTimeBackButtonWasTapped));
+        (widget.snackBar.duration >
+            DateTime.now().difference(lastTimeBackButtonWasTapped));
   }
 
   /// Returns whether the next back navigation of this route will be handled
@@ -61,7 +62,8 @@ class _DoubleBackToCloseAppState extends State<DoubleBackToCloseApp> {
   /// Returns true when there's a widget that inserted an entry into the
   /// local-history of the current route, in order to handle pop. This is done
   /// by [Drawer], for example, so it can close on pop.
-  bool get _willHandlePopInternally => ModalRoute.of(context)?.willHandlePopInternally ?? false;
+  bool get _willHandlePopInternally =>
+      ModalRoute.of(context)?.willHandlePopInternally ?? false;
 
   @override
   Widget build(BuildContext context) {

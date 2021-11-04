@@ -1,15 +1,16 @@
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_base/utils/app_utils.dart';
+import 'package:flutter_base/utils/base_utils.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../flutter_base.dart';
 import '../widgets.dart';
 
 class ImageDialog extends StatelessWidget {
   final String? title;
   final BoxDecoration? decoration;
-  final Function onPick;
+  final Function(String, String, dynamic file) onPick;
 
   const ImageDialog({
     Key? key,
@@ -21,15 +22,13 @@ class ImageDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Texts(title ?? 'Select Image'),
+      title: Texts(title ?? 'Choose image'),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       content: Row(
         children: <Widget>[
           Expanded(
             child: InkWell(
-              onTap: () {
-                pick(context, ImageSource.camera);
-              },
+              onTap: () => pick(context, ImageSource.camera),
               child: Container(
                 height: 100,
                 decoration: decoration ??
@@ -53,9 +52,7 @@ class ImageDialog extends StatelessWidget {
           const SizedBox(width: 20),
           Expanded(
             child: InkWell(
-              onTap: () async {
-                pick(context, ImageSource.gallery);
-              },
+              onTap: () => pick(context, ImageSource.gallery),
               child: Container(
                 height: 100,
                 decoration: decoration ??
@@ -79,7 +76,7 @@ class ImageDialog extends StatelessWidget {
         ],
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: const Texts('CANCEL'),
           onPressed: () {
             Navigator.pop(context);
@@ -92,27 +89,23 @@ class ImageDialog extends StatelessWidget {
   void pick(BuildContext context, ImageSource source) async {
     try {
       Navigator.pop(context);
-      final pickedFile = await AppUtils.pickImage(source: source);
+      final result = await BaseUtils.pickImage(source);
 
-      if (pickedFile != null) {
-        String fileName = "";
+      if (result != null) {
+        File? file;
+        String fileName = "", filePath = "";
 
-        if (source == ImageSource.camera) {
-          var now = DateTime.now();
-          fileName =
-              "Image_${now.year}_${now.month}_${now.day}_${now.millisecondsSinceEpoch}.jpg";
-        } else {
-          fileName =
-              pickedFile.path.substring(pickedFile.path.lastIndexOf("/"));
-          fileName = fileName
-              .toString()
-              .substring(1)
-              .replaceAll("image_picker", "Image_");
-        }
-        onPick(fileName, pickedFile.path);
+        /// if its not null then we will surely have file
+        /// and its attributes in result data
+
+        file = result['file'];
+        fileName = result['file_name'];
+        filePath = result['file_path'];
+
+        onPick(fileName, filePath, file);
       }
     } catch (e) {
-      log("exception in pick image ==>>> ${e.toString()}");
+      showLog("pickImage exception =====>>> $e");
     }
   }
 }

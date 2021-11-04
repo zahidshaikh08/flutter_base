@@ -18,6 +18,8 @@ class Texts extends StatelessWidget {
   final FontStyle? fontStyle;
   final TextDirection? textDirection;
 
+  final double? height;
+
   /// if set and not null then all of the default values will be ignored
   /// for this text widget that is color,fontSize etc...
   final TextStyle? textStyle;
@@ -39,6 +41,7 @@ class Texts extends StatelessWidget {
     this.fontStyle,
     this.textStyle,
     this.textDirection,
+    this.height,
   }) : super(key: key);
 
   @override
@@ -53,14 +56,14 @@ class Texts extends StatelessWidget {
       textDirection: textDirection,
       style: textStyle ??
           customTextStyle(
-            shadows: shadows,
             fontSize: fontSize,
-            fontStyle: fontStyle,
-            fontFamily: fontFamily,
+            color: color ?? Theme.of(context).textTheme.bodyText2?.color,
             fontWeight: fontWeight,
             letterSpacing: letterSpacing,
             textDecoration: textDecoration,
-            color: color ?? Theme.of(context).textTheme.bodyText2?.color,
+            fontFamily: fontFamily,
+            shadows: shadows,
+            fontStyle: fontStyle,
           ),
       strutStyle: StrutStyle(
         fontSize: fontSize,
@@ -78,6 +81,7 @@ class Texts extends StatelessWidget {
     String? fontFamily,
     var shadows,
     FontStyle? fontStyle,
+    double? height,
   }) {
     return TextStyle(
       color: color,
@@ -88,6 +92,7 @@ class Texts extends StatelessWidget {
       letterSpacing: letterSpacing,
       shadows: shadows,
       fontStyle: fontStyle,
+      height: height,
     );
   }
 }
