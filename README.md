@@ -11,29 +11,21 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Base Flutter Project
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+This is base flutter project created by :- `Zahid-Shaikh`
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+You can use this project as a package so that you can add your own base methods and configuration
+along with this project.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
-```
+TODO: Add proper usage
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+TODO: Add proper documentation
